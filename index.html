@@ -2,7 +2,19 @@
 <html>
   <head>
     <title>Digimon TCGPlayer Mass Import Converter</title>
-    <script defer>
+  </head>
+  <body>
+    <label>
+      <div>Input</div>
+      <textarea id="in" style="width:500px; height: 100px" placeholder="Type or paste text here to generate the output"></textarea>
+    </label>
+    <br>
+    <label>
+      <div>Output</div>
+      <textarea id="out" readonly disabled style="width: 500px; height: 100px" placeholder="waiting for input..."></textarea>
+    </label>
+    
+    <script>
       // @ts-check
       function process(data) {
         return data
@@ -34,16 +46,5 @@
         })
       }
     </script>
-  </head>
-  <body>
-    <label>
-      <div>Input</div>
-      <textarea id="in" style="width:500px; height: 100px" placeholder="Type or paste text here to generate the output"></textarea>
-    </label>
-    <br>
-    <label>
-      <div>Output</div>
-      <textarea id="out" readonly disabled style="width: 500px; height: 100px" placeholder="waiting for input..."></textarea>
-    </label>
   </body>
 </html>
