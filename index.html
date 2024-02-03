@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Digimon TCGPlayer Mass Import Converter</title>
+    <script defer>
+      // @ts-check
+      function process(data) {
+        return data
+          .split('\n')
+          .map(line => line.trim())
+          .map(line => {
+            if (line.length === 0)
+              return ''
+            const matches = line.match(/^(.+?)-(.+?) (.+?) (\d+)$/)
+            if (!matches || !matches[1] || !matches[2] || !matches[3] || !matches[4])
+              return '!!Invalid input row!!'
+            return `${matches[4]} ${matches[3]} [${matches[1]}]`
+          })
+          .join('\n')
+      }
+      const inField = document.getElementById('in')
+      const outField = document.getElementById('out')
+      if (!inField || !outField || !(inField instanceof HTMLTextAreaElement) || !(outField instanceof HTMLTextAreaElement)) {
+        document.write('Failed to setup app. Contact the maintainer or report a bug.')
+      } else {
+        inField.addEventListener('keyup', () => {
+          try {
+            outField.value = process(inField.value)
+            outField.style.borderColor = ''
+          } catch (e) {
+            outField.value = 'Error processing input'
+            outField.style.borderColor = 'red'
+          }
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <label>
+      <div>Input</div>
+      <textarea id="in" style="width:500px; height: 100px" placeholder="Type or paste text here to generate the output"></textarea>
+    </label>
+    <br>
+    <label>
+      <div>Output</div>
+      <textarea id="out" readonly disabled style="width: 500px; height: 100px" placeholder="waiting for input..."></textarea>
+    </label>
+  </body>
+</html>
