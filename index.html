@@ -16,6 +16,19 @@
     
     <script>
       // @ts-check
+      /**
+       * @param {string} id
+       */
+      function formatCardId(id) {
+        return id
+          .replace(/^ST/, 'ST-')
+          .replace(/(\d+)$/, (_match, digits) => digits.padStart(2, '0'))
+          .replace(/^P$/, 'D-PR')
+      }
+      /**
+       * @param {string} data newline separated card entries
+       * @returns {string} 
+       */
       function process(data) {
         return data
           .split('\n')
@@ -28,7 +41,7 @@
             const matches = line.match(/^(.+?)-(.+?) (.+?) (\d+)$/)
             if (!matches || !matches[1] || !matches[2] || !matches[3] || !matches[4])
               return '!!Invalid input row!!'
-            return `${matches[4]} ${matches[3]} [${matches[1]}]`
+            return `${matches[4]} ${matches[3]} [${formatCardId(matches[1])}]`
           })
           .join('\n')
       }
